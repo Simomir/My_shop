@@ -7,7 +7,7 @@ from blog.models import Post
 class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
-    paginate_by = 5
+    paginate_by = 6
     template_name = 'blog/index.html'
 
 

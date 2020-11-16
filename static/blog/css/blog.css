@@ -45,3 +45,7 @@ p.date {
     clear: both;
     height: 120px;
 }
+
+.font-small {
+    font-size: 1rem;
+}

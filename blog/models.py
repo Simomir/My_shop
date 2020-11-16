@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from .managers import PublishedManager
 
 
 class Post(models.Model):
@@ -25,9 +26,13 @@ class Post(models.Model):
         verbose_name = 'Blog post'
         verbose_name_plural = 'Blog posts'
         ordering = ['-publish']
+        # default_manager_name = 'objects'
 
     def __str__(self):
         return self.title
+
+    objects = models.Manager()  # The default manager
+    published = PublishedManager()  # the custom manager
 
 
 # Delete the image associated with the blog post on deletion of the post itself

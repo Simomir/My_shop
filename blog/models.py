@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from .managers import PublishedManager
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -33,6 +34,15 @@ class Post(models.Model):
 
     objects = models.Manager()  # The default manager
     published = PublishedManager()  # the custom manager
+
+    # Building the canonical URL for the post
+    def get_absolute_url(self):
+        return reverse('blog:post detail', args=[
+            self.publish.year,
+            self.publish.month,
+            self.publish.day,
+            self.slug
+        ])
 
 
 # Delete the image associated with the blog post on deletion of the post itself

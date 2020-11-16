@@ -6,4 +6,8 @@
 
 {% block content %}
     <h1>All blog posts</h1>
+    {% for post in posts %}
+        {{ post.title }}
+    {% endfor %}
+
 {% endblock %}

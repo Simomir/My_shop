@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
 
 from blog.models import Post
 
 
-def index(request):
-    posts = Post.published.all()
-    return render(request, 'blog/index.html', {'posts': posts})
+class PostListView(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    paginate_by = 5
+    template_name = 'blog/index.html'
 
 
 def post_detail(request):

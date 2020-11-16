@@ -1,13 +1,21 @@
 {% extends 'blog/shared/base.html' %}
 {% load static %}
 {% block title %}
-    My Shop
+    Our Blog
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h1>All blog posts</h1>
+    <h1>Our blog posts</h1>
     {% for post in posts %}
-        {{ post.title }}
+        <h2>
+            <a href="{{ post.get_absolute_url }}">
+                {{ post.title }}
+            </a>
+        </h2>
+        <p class="date">Published {{ post.publish }}</p>
+        {{ post.body|truncatewords:30 }}
     {% endfor %}
-
 {% endblock %}

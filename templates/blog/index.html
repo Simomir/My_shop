@@ -5,6 +5,7 @@
 {% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/pagination.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -18,4 +19,5 @@
         <p class="date">Published {{ post.publish }}</p>
         {{ post.body|truncatewords:30 }}
     {% endfor %}
+    {% include 'blog/partials/pagination.html' with page=page_obj %}
 {% endblock %}

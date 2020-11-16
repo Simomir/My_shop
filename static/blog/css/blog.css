@@ -40,3 +40,8 @@ p.date {
     font-size: 12px;
     font-style: italic;
 }
+
+.clear {
+    clear: both;
+    height: 120px;
+}

@@ -8,5 +8,6 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created', 'publish', 'updated')
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ('title', 'body')
+    readonly_fields = ('created', 'updated')
     date_hierarchy = 'publish'
     ordering = ('status', 'publish')

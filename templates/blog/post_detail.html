@@ -1,0 +1,20 @@
+{% extends 'blog/shared/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/single_article_img.css' %}">
+{% endblock %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p class="date">
+        Published {{ post.publish }}
+    </p>
+    <img class="article-img" src="{{ post.image.url }}" alt="post image">
+    <br>
+    {{ post.body|linebreaks }}
+{% endblock %}

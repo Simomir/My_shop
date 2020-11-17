@@ -27,7 +27,6 @@ class Post(models.Model):
         verbose_name = 'Blog post'
         verbose_name_plural = 'Blog posts'
         ordering = ['-publish']
-        # default_manager_name = 'objects'
 
     def __str__(self):
         return self.title

@@ -134,3 +134,6 @@ STATIC_ROOT = ''
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
+
+# Send emails via the console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

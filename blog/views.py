@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView, FormView
 from .forms import EmailPostForm
 from blog.models import Post

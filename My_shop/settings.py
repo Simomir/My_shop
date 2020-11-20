@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # my own
     'blog',
+    'shop',
 
     # third party ones
 ]
@@ -130,7 +131,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     join(BASE_DIR, 'static'),
 )
-STATIC_ROOT = ''
+# STATIC_ROOT = ''
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')

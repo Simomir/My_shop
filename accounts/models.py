@@ -1,10 +1,36 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 class AccountManager(BaseUserManager):
-    pass
+    def create_user(self, email, username, password):
+        """
+        Creates a user with the given username, email and password.
+        """
+        if not email:
+            raise ValueError("Users must provide an email address.")
+        if not username:
+            raise ValueError("Users must have a username.")
+
+        user = self.model(
+            email=self.normalize_email(email),
+            username=username,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, username, password):
+        user = self.create_user(email=email, username=username, password=password)
+
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
@@ -22,21 +48,22 @@ class Account(AbstractBaseUser, PermissionsMixin):
         _('Email'),
         blank=False,
         max_length=60,
-        unique=True
+        unique=True,
+        error_messages={
+            'unique': _('A user with that email already exists.')
+        }
     )
 
     first_name = models.CharField(
         _('First name'),
         max_length=30,
         blank=True,
-        default='John',
     )
 
     last_name = models.CharField(
         _('Last name'),
         max_length=30,
         blank=True,
-        default='Doe'
     )
 
     date_joined = models.DateTimeField(
@@ -56,6 +83,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
         default='users/no_profile_image.jpeg'
     )
 
+    mobile_number = models.CharField(
+        _('Mobile number'),
+        max_length=10,
+        blank=True,
+    )
+
     last_login = models.DateTimeField(
         auto_now=True,
         verbose_name='Last login'
@@ -66,3 +99,29 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False, verbose_name='Staff')
 
     objects = AccountManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return f'{self.first_name} {self.last_name}'
+        return self.username
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    class Meta:
+        verbose_name = 'Account'
+        verbose_name_plural = 'Accounts'
+        db_table = 'auth_user'
+
+
+# Delete the image associated with the account on deletion of the account itself
+@receiver(post_delete, sender=Account)
+def submission_delete(sender, instance, **kwargs):
+    if 'profile_images' in instance.image.url:
+        instance.image.delete(False)

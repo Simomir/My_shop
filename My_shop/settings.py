@@ -140,3 +140,6 @@ MEDIA_ROOT = join(BASE_DIR, 'media')
 
 # Send emails via the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Custom User model
+AUTH_USER_MODEL = 'accounts.Account'

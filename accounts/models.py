@@ -74,7 +74,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     bio = models.CharField(
         _('About'),
         max_length=1000,
-        blank=True
+        blank=True,
     )
 
     image = models.ImageField(

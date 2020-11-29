@@ -41,7 +41,10 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = '__all__'
+        fields = ('image', 'username', 'email', 'first_name', 'last_name', 'mobile_number', 'bio')
+        widgets = {
+            'bio': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+        }
 
     def clean_password(self):
         return self.initial['password']
@@ -51,11 +54,29 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('username', 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
+    list_display = (Account.__str__, 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('is_active', 'is_staff', 'date_joined', 'last_login')
     ordering = ('-date_joined',)
     search_fields = ('username', 'email', 'mobile_number')
     filter_horizontal = ()
+
+    fieldsets = (
+        (None, {'fields': ('image', 'username', 'email', 'password')}),
+        ("Personal info", {
+            'fields':
+                ('first_name',
+                 'last_name',
+                 'bio',
+                 'mobile_number',
+                 )}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')})
+    )
+
+    add_fieldsets = (
+        (None, {'classes': ('wide',),
+                'fields': ('username', 'email', 'password1', 'password2'),
+                }),
+    )
 
 
 admin.site.register(Account, UserAdmin)

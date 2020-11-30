@@ -8,12 +8,8 @@ from .models import Account
 
 
 class UserDashboard(View):
-    @login_required
     def get(self, request):
         return render(request, 'users/dashboard.html')
-
-    def post(self, request):
-        pass
 
 
 class SignUpUser(CreateView):

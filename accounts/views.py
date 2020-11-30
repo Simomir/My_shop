@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, View
@@ -7,7 +7,7 @@ from .forms import AccountCreationForm
 from .models import Account
 
 
-class UserDashboard(View):
+class UserDashboard(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'users/dashboard.html')
 

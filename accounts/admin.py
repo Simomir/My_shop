@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from django.contrib.auth.models import Group
+# from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import Account
@@ -54,7 +54,12 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = (Account.__str__, 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
+    @staticmethod
+    def get_name(obj):
+        start = str(obj.__str__).rindex(':')
+        return str(obj.__str__)[start + 1:-2]
+
+    list_display = ('get_name', 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('is_active', 'is_staff', 'date_joined', 'last_login')
     ordering = ('-date_joined',)
     search_fields = ('username', 'email', 'mobile_number')

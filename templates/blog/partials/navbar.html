@@ -28,8 +28,8 @@
                 <a href="#">
                     <button class="btn btn-sm btn-outline-secondary" type="button">Login</button>
                 </a>
-                <a href="#">
-                    <button class="btn btn-sm btn-outline-secondary" type="button">Register</button>
+                <a href="{% url 'accounts:signup user' %}">
+                    <button class="btn btn-sm btn-outline-secondary" type="button">Sign Up</button>
                 </a>
             {% endif %}
         </form>

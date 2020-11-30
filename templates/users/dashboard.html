@@ -1,0 +1,10 @@
+{% extends 'users/shared/base.html' %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+    <img src="{{ user.image.url }}" alt="{{ user.username }} Photo" title="{{ user.username }}'s Photo">
+    {{ user.username }}
+{% endblock %}

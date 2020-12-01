@@ -1,6 +1,5 @@
 {% extends 'users/shared/base.html' %}
 {% load static %}
-{% load bootstrap4 %}
 
 {% block title %}
     Sign Up Page
@@ -11,13 +10,6 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-center">Sign Up Form</h1>
-    <div class="row d-flex justify-content-center">
-        <form class="form" method="post" action="{% url 'accounts:signup user' %}">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <button class="btn btn-primary">Sign Up</button>
-        </form>
-    </div>
+    {% include 'users/partials/user_signup_form.html' %}
 {% endblock %}
 

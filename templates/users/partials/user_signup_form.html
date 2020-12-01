@@ -1,0 +1,9 @@
+{% load bootstrap4 %}
+<h1 class="text-center">Sign Up Form</h1>
+<div class="row d-flex justify-content-center">
+    <form class="form" method="post" action="{% url 'accounts:signup user' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button class="btn btn-primary">Sign Up</button>
+    </form>
+</div>

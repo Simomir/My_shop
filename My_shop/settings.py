@@ -144,3 +144,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Custom User model
 AUTH_USER_MODEL = 'accounts.Account'
+
+# Custom authentications
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.authentication.EmailBackend',
+]

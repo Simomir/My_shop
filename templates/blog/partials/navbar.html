@@ -26,11 +26,11 @@
                 <a href="{% url 'accounts:user dashboard' %}">
                     <button class="btn btn-sm btn-outline-secondary" type="button">Dashboard</button>
                 </a>
-                <a href="#">
+                <a href="{% url 'accounts:sign out' %}">
                     <button class="btn btn-sm btn-outline-secondary" type="button">Logout</button>
                 </a>
             {% else %}
-                <a href="#">
+                <a href="{% url 'accounts:user sign in' %}">
                     <button class="btn btn-sm btn-outline-secondary" type="button">Login</button>
                 </a>
                 <a href="{% url 'accounts:signup user' %}">

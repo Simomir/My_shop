@@ -1,0 +1,12 @@
+{% load bootstrap4 %}
+<h1 class="text-center">Sign Ip Form</h1>
+<div class="row d-flex justify-content-center">
+    <form class="form" method="post" action="{% url 'accounts:user sign in' %}">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button class="btn btn-primary">Sign Ip</button>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+    </form>
+</div>

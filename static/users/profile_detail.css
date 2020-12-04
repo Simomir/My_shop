@@ -1,6 +1,7 @@
 .profile_image {
     height: 163px;
     width: auto;
+    border-radius: 50%;
 }
 
 .profile-work {

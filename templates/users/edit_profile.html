@@ -1,0 +1,17 @@
+{% extends 'users/shared/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'users/profile_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+        <form method="post" enctype="multipart/form-data" action="{% url 'accounts:edit user info' %}">
+            <img class="profile_image" src="{{ user.image.url }}" alt="User Image">
+            {% bootstrap_form form %}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+{% endblock %}

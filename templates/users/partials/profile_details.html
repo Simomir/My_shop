@@ -16,7 +16,7 @@
                                         {% endif %}
                                     </h5>
                                     <h6>
-                                        Seller since {{ user.date_joined }}
+                                        Seller since {{ user.date_joined|date:"d.m.Y" }}
                                     </h6>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -28,11 +28,9 @@
                             </ul>
                         </div>
                     </div>
-                    {% if user.is_authenticated %}
-                        <div class="col-md-2">
-                            <a href="#"><button class="btn" name="btnAddMore">Edit Profile</button></a>
-                        </div>
-                    {% endif %}
+                    <div class="col-md-2">
+                        <a class="btn btn-danger" href="{% url 'accounts:edit user info' %}">Edit Profile</a>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">

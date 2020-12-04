@@ -120,7 +120,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
         db_table = 'auth_user'
 
 
-# Delete the image associated with the account on deletion of the account itself
+# Delete the image (if there is one different than the default one)
+# associated with the account on deletion of the account itself
 @receiver(post_delete, sender=Account)
 def submission_delete(sender, instance, **kwargs):
     if 'profile_images' in instance.image.url:

@@ -5,9 +5,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, View
 from shop.models import Product
-from .forms import AccountCreationForm, SignInForm
+from .forms import AccountCreationForm, SignInForm, ChangeUserInfo
 from .models import Account
-
+from django.views.generic import UpdateView
 
 class UserDashboard(LoginRequiredMixin, View):
     def get(self, request):
@@ -56,3 +56,29 @@ class SignInUser(View):
 def logout_user(request):
     logout(request)
     return redirect('shop:shop index')
+
+
+@login_required
+def edit_user_info(request):
+    if request.method == "GET":
+        form = ChangeUserInfo(instance=request.user)
+
+        context = {
+            'form': form,
+        }
+
+        return render(request, 'users/edit_profile.html', context=context)
+
+    else:
+        form = ChangeUserInfo(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:user dashboard')
+        return render(request, 'users/edit_profile.html', {'form': form})
+
+
+class EditUser(UpdateView, LoginRequiredMixin):
+    template_name = 'users/edit_profile.html'
+    context_object_name = 'form'
+    form_class = ChangeUserInfo
+    success_url = reverse_lazy('accounts:user dashboard')

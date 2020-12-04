@@ -28,9 +28,11 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <a href="#"><button class="btn" name="btnAddMore">Edit Profile</button></a>
-                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="col-md-2">
+                            <a href="#"><button class="btn" name="btnAddMore">Edit Profile</button></a>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="col-md-4">

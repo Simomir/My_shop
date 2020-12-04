@@ -4,6 +4,6 @@
     <form class="form" method="post" action="{% url 'accounts:signup user' %}">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button class="btn btn-primary">Sign Up</button>
+        <p><button class="btn btn-primary">Sign Up</button> or <a href="{% url 'accounts:user sign in' %}">sign in</a> here</p>
     </form>
 </div>

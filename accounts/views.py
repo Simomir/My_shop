@@ -7,13 +7,11 @@ from django.views.generic import CreateView, ListView, View
 from shop.models import Product
 from .forms import AccountCreationForm, SignInForm, ChangeUserInfo
 from .models import Account
-from django.views.generic import UpdateView
+
 
 class UserDashboard(LoginRequiredMixin, View):
     def get(self, request):
-        products = Product.objects.filter(user=request.user)
         context = {
-            'products': products
         }
         return render(request, 'users/dashboard.html', context=context)
 
@@ -75,10 +73,3 @@ def edit_user_info(request):
             form.save()
             return redirect('accounts:user dashboard')
         return render(request, 'users/edit_profile.html', {'form': form})
-
-
-class EditUser(UpdateView, LoginRequiredMixin):
-    template_name = 'users/edit_profile.html'
-    context_object_name = 'form'
-    form_class = ChangeUserInfo
-    success_url = reverse_lazy('accounts:user dashboard')

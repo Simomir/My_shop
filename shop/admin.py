@@ -4,4 +4,6 @@ from .models import Product
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'user', 'price')
+    list_filter = ('name', 'user', 'price')
+    search_fields = ('name',)

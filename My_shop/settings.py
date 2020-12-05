@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my own
     'blog',
-    'shop',
+    "shop",
     'accounts',
 
     # third party ones

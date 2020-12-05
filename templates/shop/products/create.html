@@ -1,0 +1,17 @@
+{% extends 'users/shared/base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block title %}
+    Create Product
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+        <form enctype="multipart/form-data" method="post" action="{% url 'shop:create product' %}">
+            {% bootstrap_form form %}
+            {% csrf_token %}
+            <button>Create</button>
+        </form>
+    </div>
+{% endblock %}

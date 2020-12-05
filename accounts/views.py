@@ -3,15 +3,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, View
+from django.views.generic import CreateView, View
 from shop.models import Product
 from .forms import AccountCreationForm, SignInForm, ChangeUserInfo
 from .models import Account
 
 
-class UserDashboard(LoginRequiredMixin, View):
+class UserDashboard(View, LoginRequiredMixin):
     def get(self, request):
+        all_products = Product.objects.filter(user_id=request.user.id).count
+        available_products = Product.available_products.filter(user_id=request.user.id).count()
+
         context = {
+            'all': all_products,
+            'available': available_products,
         }
         return render(request, 'users/dashboard.html', context=context)
 

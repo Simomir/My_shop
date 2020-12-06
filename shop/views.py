@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.views.generic import ListView
-
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView
 from .models import Product
 from .forms import ProductForm
 
@@ -41,8 +40,23 @@ def delete(request):
     pass
 
 
-def product_detail(request):
-    pass
+class ProductDetail(DetailView):
+    model = Product
+    template_name = 'shop/products/detail.html'
+    context_object_name = 'product'
+
+    def get_object(self, queryset=None):
+        product_id = self.kwargs['pk']
+        return get_object_or_404(Product, id=product_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        name = f'{self.object.user.first_name} {self.object.user.last_name}' \
+            if self.object.user.first_name and self.object.user.last_name else f'{self.object.user.username}'
+        # I know I can make a function inside the model and stuff about getting the name
+        # but just wanted you to see I know where stuff comes from.
+        context['name'] = name
+        return context
 
 
 def landing(request):

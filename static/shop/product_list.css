@@ -1,0 +1,66 @@
+body {
+    background: linear-gradient(to top, rgb(253, 213, 152) 15%, gold 200%) no-repeat;
+    height: auto;
+}
+
+.card {
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.card:hover {
+    transform: scale(1.08);
+    transition: all 0.4s ease-in-out
+}
+
+.product_image {
+    background-color: white;
+    object-fit: contain;
+    padding-top: 10px;
+    height: 260px;
+    width: 260px;
+}
+
+.btn:hover {
+    color: #fdaa4b
+}
+
+div.text-muted {
+    font-size: 0.9rem
+}
+
+@media(max-width:372px) {
+    .results {
+        font-size: 0.9rem
+    }
+}
+
+@media(max-width:330px) {
+    .results {
+        font-size: 0.85rem
+    }
+}
+
+@media(min-height: 700px) {
+    body {
+        height: 100vh
+    }
+}
+
+@media(max-width:768px) {
+    body {
+        height: 100%
+    }
+}
+
+.pagination {
+    margin:40px 0;
+    font-weight:bold;
+}
+
+.clear {
+    clear: both;
+    height: 120px;
+}

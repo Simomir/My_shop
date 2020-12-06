@@ -1,15 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
+
 from .models import Product
 from .forms import ProductForm
 
 
-def index(request):
-    products = Product.available_products.all()
-    context = {
-        'products': products,
-    }
-    return render(request, 'shop/index.html', context=context)
+class ShopIndex(ListView):
+    queryset = Product.available_products.all()
+    context_object_name = 'products'
+    paginate_by = 8
+    template_name = 'shop/index.html'
 
 
 @login_required

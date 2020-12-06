@@ -1,10 +1,20 @@
-{% extends 'users/shared/base.html' %}
+{% extends 'shop/shared/base.html' %}
 {% load static %}
 
 {% block title %}
-    Home
+    Product List
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'shop/product_list.css' %}">
 {% endblock %}
 
 {% block content %}
-    {{ products.count }}
+    <div class="container mt-3">
+        <div class="row">
+            {% include 'shop/partials/list.html' %}
+        </div>
+        {% include 'blog/partials/pagination.html' with page=page_obj %}
+    </div>
+    <div class="clear">{% include 'blog/partials/footer.html' %}</div>
 {% endblock %}

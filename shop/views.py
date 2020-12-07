@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Product
@@ -63,3 +64,31 @@ class ProductDetail(DetailView):
 
 def landing(request):
     return render(request, 'shop/landing_page.html')
+
+
+class UserOwnedProducts(ListView, LoginRequiredMixin):
+    template_name = 'shop/user_owned_products.html'
+    model = Product
+    paginate_by = 8
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        own_products = Product.objects.filter(user_id=self.request.user.id)
+        context['own_products'] = own_products
+        return context
+
+
+class UserOwnProductDetail(DetailView, LoginRequiredMixin):
+    model = Product
+    template_name = 'shop/own_product_detail.html'
+    context_object_name = 'product'
+
+    def get_object(self, queryset=None):
+        product_id = self.kwargs['pk']
+        return get_object_or_404(Product, id=product_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        can_see_and_modify = self.request.user.id == self.object.user.id
+        context['it_can'] = can_see_and_modify
+        return context

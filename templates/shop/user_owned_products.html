@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Product List
+    {{ user.username }} products
 {% endblock %}
 
 {% block styles %}
@@ -10,11 +10,12 @@
 {% endblock %}
 
 {% block content %}
+    <h1>{{ user }} here are all of your registered products</h1>
     <div class="container mt-3">
         <div class="row">
-            {% include 'shop/partials/list.html' %}
+            {% include 'shop/partials/owned_list.html' with products=own_products %}
         </div>
-        {% if products.count > 8 %}
+        {% if own_products.count > 8 %}
             {% include 'blog/partials/pagination.html' with page=page_obj %}
         {% endif %}
     </div>

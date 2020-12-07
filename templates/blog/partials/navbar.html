@@ -17,7 +17,7 @@
             </li>
             {% if request.user.is_authenticated %}
             <li class="nav-item active">
-                <a class="nav-link" href="#">My Products</a>
+                <a class="nav-link" href="{% url 'shop:own products' %}">My Products</a>
             </li>
             {% endif %}
         </ul>

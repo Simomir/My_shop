@@ -8,12 +8,10 @@
                     <div class="d-flex flex-column">
                         <h5>{{ product.name }}</h5>
                         <p>${{ product.price }}</p>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Details</a>
+                        <a href="{{ product.get_owned_absolute_url }}" class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endfor %}
-
-

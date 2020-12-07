@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/not_allowed.css' %}">
+<h2>You are not allowed to view this page. Please follow any of the following links.</h2>
+<ul class="list-group list-group-flush">
+    <li class="list-group-item"><a class="badge badge-pill badge-info" href="{% url 'shop:landing page' %}">Home</a></li>
+    <li class="list-group-item"><a class="badge badge-pill badge-info" href="{% url 'blog:index' %}">Blog</a></li>
+    <li class="list-group-item"><a class="badge badge-pill badge-info" href="{% url 'shop:shop index' %}">All Products</a></li>
+    {% if not user.is_authenticated %}
+        <li class="list-group-item"><a class="badge badge-pill badge-info" href="{% url 'accounts:signup user' %}">Sign Up</a></li>
+        <li class="list-group-item"><a class="badge badge-pill badge-info" href="{% url 'accounts:user sign in' %}">Sign In</a></li>
+    {% endif %}
+</ul>

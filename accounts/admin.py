@@ -55,11 +55,10 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
 
     @staticmethod
-    def get_name(obj):
-        start = str(obj.__str__).rindex(':')
-        return str(obj.__str__)[start + 1:-2]
+    def Name(obj):
+        return str(obj)
 
-    list_display = ('get_name', 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
+    list_display = ('Name', 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('is_active', 'is_staff', 'date_joined', 'last_login')
     ordering = ('-date_joined',)
     search_fields = ('username', 'email', 'mobile_number')

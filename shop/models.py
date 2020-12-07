@@ -56,6 +56,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product detail', args=[self.id])
 
+    def get_owned_absolute_url(self):
+        return reverse('shop:owned product detail', args=[self.id])
+
 
 @receiver(post_delete, sender=Product)
 def submission_delete(sender, instance, **kwargs):

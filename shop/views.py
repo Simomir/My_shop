@@ -55,7 +55,9 @@ class ProductDetail(DetailView):
             if self.object.user.first_name and self.object.user.last_name else f'{self.object.user.username}'
         # I know I can make a function inside the model and stuff about getting the name
         # but just wanted you to see I know where stuff comes from.
+        other_products = Product.objects.filter(user_id=self.object.user.id)
         context['name'] = name
+        context['other_products'] = other_products
         return context
 
 

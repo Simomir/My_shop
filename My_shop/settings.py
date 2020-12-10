@@ -25,7 +25,7 @@ SECRET_KEY = '%cftm2ic7vlalh-nkat3*9)bxitbgf0b_rt%+jl_gzbkna$(j9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
 
     # third party ones
     'bootstrap4',
+    'social_django',
+    'django_extensions',
 
     # default ones
     'django.contrib.admin',
@@ -149,4 +151,5 @@ AUTH_USER_MODEL = 'accounts.Account'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'accounts.authentication.EmailBackend',
+    'social_core.backends.facebook.FacebookAppOAuth2',
 ]

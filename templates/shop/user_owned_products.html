@@ -10,7 +10,13 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ user }} here are all of your registered products</h1>
+    {% if user.is_authenticated %}
+        <h1>{{ user }} here are all of your registered products</h1>
+        <a class="btn btn-primary" href="{% url 'shop:create product' %}">Create new product</a>
+    {% else %}
+        <h1>{{ user }} please follow on of the links below</h1>
+        <p><a href="{% url 'accounts:user sign in' %}">Login</a> or <a href="{% url 'accounts:signup user' %}">Sign up</a></p>
+    {% endif %}
     <div class="container mt-3">
         <div class="row">
             {% include 'shop/partials/owned_list.html' with products=own_products %}

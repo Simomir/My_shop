@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <img class="img-fluid" src="{{ product.image.url }}" alt="">
+        </div>
+        <div class="col-md-4">
+            <h3 class="my-3">Product Name</h3>
+            <h4>{{ product.name }}</h4>
+            <h3 class="my-3">Project Price</h3>
+            <p>${{ product.price }}</p>
+            <h3 class="my-3">Product Availability</h3>
+            <p>{{ product.available }}</p>
+            <h3 class="my-3">Product Description</h3>
+            <p>{{ product.description }}</p>
+        </div>
+    </div>
+    <br>
+    <div class="btn-group btn-group-lg" role="group">
+        <a class="btn btn-secondary" href="{% url 'shop:edit product' product.id %}">Edit</a>
+        <a class="btn btn-secondary" href="{% url 'shop:delete product' product.id %}">Delete</a>
+    </div>
+</div>

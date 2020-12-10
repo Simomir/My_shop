@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
-from .models import Product
+
 from .forms import ProductForm
+from .models import Product
 
 
 class ShopIndex(ListView):
@@ -37,8 +38,12 @@ def edit(request,):
 
 
 @login_required
-def delete(request):
-    pass
+def delete(request, pk):
+    product = get_object_or_404(Product, id=pk)
+    if product.user.id == request.user.id:
+        product.delete()
+        return redirect('shop:own products')
+    return redirect('shop:shop index', {'message': "You tried to access content that belongs to another person."})
 
 
 class ProductDetail(DetailView):
@@ -70,12 +75,10 @@ class UserOwnedProducts(ListView, LoginRequiredMixin):
     template_name = 'shop/user_owned_products.html'
     model = Product
     paginate_by = 8
+    context_object_name = 'own_products'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        own_products = Product.objects.filter(user_id=self.request.user.id)
-        context['own_products'] = own_products
-        return context
+    def get_queryset(self):
+        return self.model.objects.filter(user_id=self.request.user.id)
 
 
 class UserOwnProductDetail(DetailView, LoginRequiredMixin):

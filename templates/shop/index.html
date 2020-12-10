@@ -10,6 +10,9 @@
 {% endblock %}
 
 {% block content %}
+    {% if message %}
+        <h3>{{ message }}</h3>
+    {% endif %}
     <div class="container mt-3">
         <div class="row">
             {% include 'shop/partials/list.html' %}

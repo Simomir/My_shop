@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, View
+
 from shop.models import Product
 from .forms import AccountCreationForm, SignInForm, ChangeUserInfo
 from .models import Account

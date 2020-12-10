@@ -6,7 +6,7 @@
 
 {% block content %}
     {% if it_can %}
-        <h2>It works</h2>
+        {% include 'shop/partials/own_product_detail.html' %}
     {% else %}
         {% include 'shop/partials/not_allowed.html' %}
     {% endif %}

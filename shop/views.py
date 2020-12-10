@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView
 
-from .forms import ProductForm
+from .forms import ProductForm, ProductUpdateForm
 from .models import Product
 
 
@@ -35,6 +36,20 @@ def edit(request,):
         pass
     else:
         pass
+
+
+class UpdateProductView(UpdateView, LoginRequiredMixin):
+    form_class = ProductUpdateForm
+    model = Product
+    template_name = 'shop/products/edit.html'
+    success_url = reverse_lazy('shop:own products')
+    context_object_name = 'form'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        can_see_and_modify = self.request.user.id == self.object.user.id
+        context['it_can'] = can_see_and_modify
+        return context
 
 
 @login_required
@@ -93,5 +108,7 @@ class UserOwnProductDetail(DetailView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         can_see_and_modify = self.request.user.id == self.object.user.id
+        availability = 'Yes' if self.object.available else 'No'
         context['it_can'] = can_see_and_modify
+        context['availability'] = availability
         return context

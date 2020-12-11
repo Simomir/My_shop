@@ -4,9 +4,16 @@
     <form class="form" method="post" action="{% url 'accounts:user sign in' %}">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <p><button class="btn btn-primary">Sign In</button> or <a href="{% url 'accounts:signup user' %}">sign up</a> here</p>
+        <p><button class="btn btn-primary">Sign In</button> or <a href="{% url 'accounts:signup user' %}">Sign up</a> here</p>
         {% if error %}
             <p>{{ error }}</p>
         {% endif %}
     </form>
+    <div class="social">
+        <ul>
+            <li class="facebook">
+                <a href="{% url 'social:begin' 'facebook' %}">Sign in with Facebook</a>
+            </li>
+        </ul>
+    </div>
 </div>

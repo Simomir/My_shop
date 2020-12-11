@@ -13,6 +13,8 @@ from os.path import join
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -151,5 +153,16 @@ AUTH_USER_MODEL = 'accounts.Account'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'accounts.authentication.EmailBackend',
-    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
 ]
+
+# Facebook login stuff
+SOCIAL_AUTH_FACEBOOK_KEY = '515489096078018'
+SOCIAL_AUTH_FACEBOOK_SECRET = '4a3fe085b68d19aa3148743346ce9b78'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email',]
+
+
+# Login stuff
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:user dashboard')
+LOGIN_URL = reverse_lazy('accounts:user sign in')
+LOGOUT_URL = reverse_lazy('accounts:sign out')

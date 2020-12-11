@@ -79,3 +79,10 @@ def edit_user_info(request):
             form.save()
             return redirect('accounts:user dashboard')
         return render(request, 'users/edit_profile.html', {'form': form})
+
+
+@login_required
+def delete_user(request):
+    user = request.user
+    user.delete()
+    return redirect('shop:landing page')

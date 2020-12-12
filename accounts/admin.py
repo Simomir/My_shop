@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+
+from shop.models import Product
 from .models import Account
 
 
@@ -50,15 +52,24 @@ class UserChangeForm(forms.ModelForm):
         return self.initial['password']
 
 
+class UserProductsInline(admin.StackedInline):
+    model = Product
+    verbose_name = 'Product'
+    verbose_name_plural = 'Products'
+    readonly_fields = ('name', 'price', 'description')
+    can_delete = False
+
+
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
+    inlines = (UserProductsInline, )
 
     @staticmethod
-    def Name(obj):
+    def name(obj):
         return str(obj)
 
-    list_display = ('Name', 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
+    list_display = ('name', 'email', 'date_joined', 'last_login', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('is_active', 'is_staff', 'date_joined', 'last_login')
     ordering = ('-date_joined',)
     search_fields = ('username', 'email', 'mobile_number')

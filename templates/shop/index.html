@@ -17,9 +17,7 @@
         <div class="row">
             {% include 'shop/partials/list.html' %}
         </div>
-        {% if products.count > 8 %}
-            {% include 'blog/partials/pagination.html' with page=page_obj %}
-        {% endif %}
+        {% include 'blog/partials/pagination.html' with page=page_obj %}
     </div>
     <div class="clear">{% include 'blog/partials/footer.html' %}</div>
 {% endblock %}

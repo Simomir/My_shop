@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 
 class AccountManager(BaseUserManager):
-    def _create_user(self, email, username, password=None):
+    def create_user(self, email, username, password=None):
         """
         Creates a user with the given username, email and password.
         """
@@ -20,16 +20,12 @@ class AccountManager(BaseUserManager):
             username=username,
         )
 
-        if password:
-            user.set_password(password)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, username, password=None):
-        return self._create_user(email, username, password)
-
     def create_superuser(self, email, username, password=None):
-        user = self._create_user(email=email, username=username, password=password)
+        user = self.create_user(email=email, username=username, password=password)
 
         user.is_staff = True
         user.is_superuser = True

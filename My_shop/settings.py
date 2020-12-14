@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import os
+import environ
 from os.path import join
 from pathlib import Path
 
@@ -17,12 +19,14 @@ from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%cftm2ic7vlalh-nkat3*9)bxitbgf0b_rt%+jl_gzbkna$(j9'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'My_shop.urls'
@@ -76,8 +79,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -92,11 +93,11 @@ WSGI_APPLICATION = 'My_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'my_shop',
-        'USER': 'shop_user',
-        'PASSWORD': 'nightwish4ever',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
@@ -159,15 +160,15 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Facebook login stuff
-SOCIAL_AUTH_FACEBOOK_KEY = '515489096078018'
-SOCIAL_AUTH_FACEBOOK_SECRET = '4a3fe085b68d19aa3148743346ce9b78'
+SOCIAL_AUTH_FACEBOOK_KEY = env('FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = env('FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 
 # Login stuff
-LOGIN_REDIRECT_URL = reverse_lazy('accounts:user dashboard')
-LOGIN_URL = reverse_lazy('accounts:user sign in')
-LOGOUT_URL = reverse_lazy('accounts:sign out')
+# LOGIN_REDIRECT_URL = reverse_lazy('accounts:user dashboard')
+# LOGIN_URL = reverse_lazy('accounts:user sign in')
+# LOGOUT_URL = reverse_lazy('accounts:sign out')
 
 # SOCIAL_AUTH_PIPELINE = (
 #     'social_core.pipeline.social_auth.social_details',
@@ -184,3 +185,4 @@ LOGOUT_URL = reverse_lazy('accounts:sign out')
 # SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
 #     ('email', 'email'),
 # ]
+

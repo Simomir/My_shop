@@ -188,4 +188,3 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 # SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
 #     ('email', 'email'),
 # ]
-
